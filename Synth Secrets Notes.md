@@ -441,9 +441,126 @@ In FM configuration, the volume of the sound is still determined by the volume e
 The amplitude of the output signal will decrease as EG2 decreases the gain of VCA2 -- so over time, the output gets quieter and quieter. The maximum amplitude of the Modulator signal will increase as EG1 increases the gain of VCA1. As time passes, the Modulation Index increases, the bandwidth increases, and the output gets brighter and brighter.
 
 ### Summary
-- The number of significant spectral components and their amplitudes are determined by the Modulation Index, which is proportional to the Modulator's amplitude; but inversely proportional to the Modulator's frequency.
-- For any given Carrier frequency, the position of the spectral components is determined by the Modulator's frequency alone.
+- The ==number of significant spectral components and their amplitudes== are determined by the ==Modulation Index==, which is ==proportional to the Modulator's amplitude==; but ==inversely proportional to the Modulator's frequency.==
+- For any given ==Carrier frequency==, the ==position of the spectral components== is determined by the ==Modulator's frequency== alone.
 
 Frequency Modulation is a powerful method of synthesis that is as relevant to the analogue synthesisers as it is to digital ones, and which is capable of generating sounds unobtainable by any other method.
 
-## More On Frequency Modulation
+## More On Frequency Modulation(有很多美好实例)
+We have not discussed the nature of the ==relationship between the side bands and the Carrier==. And how these relationships can be made to ==fit the simple harmonic theories==, which allow you to create tones that human ears would perceive as 'notes'. How to ==control the amplitudes of the side bands.==
+
+### Introducing Carrier:Modulator(C:M) Ratios
+Each side band in a Frequency Modulated signal lies at a frequency equal to the Carrier frequency plus or minus an integer multiple of the Modulator frequency.
+$$w_{sb}= w_c\pm n*w_m$$
+Eliminating references to frequencies in Hertz. The relative frequencies of Carrier and Modulator using a ratio 'C:M Ratio'. w_c = 100Hz, w_m = 200Hz, frequencies with a 1:2 ratio.
+
+For any given Carrier frequency, the frequencies of the upper side bands lie at C+M, C+2M, C+3M, C+4M... of the lower side bands lie at C-M, C-2M, C-3M, C-4M...This is an important result which is associated with harmonic series.
+
+Imagine an example where the C:M ratio is 1:1, the Carrier lies at 1, and the upper side bands lie at 2, 3, 4... while the lower side bands lie at 0, -1, -2, -3, -4... if wc=100Hz, wm = 100Hz, upper side bands = 200,300,400 ad infinitum. This is a perfect harmonic series for a 100Hz wave. The upper side bands of a 1:1 C:M ratio produce a harmonic series no matter what the Carrier frequency may be.
+
+Lower side bands lie at 0, -100, -200, -300, also ad infinitum. ==Negative frequencies are the same as positive frequencies, but with their phases inverted==. Out of phase signals will cancel out, leaving silence. So 1:1 ratio will result in silence as the 100Hz component cancels the -100Hz component and so on?
+
+No. For total cancellation to occur, the amplitudes of the cancelling components must be equal, and in this case they are not. So how do we know what the ==amplitudes of the side bands== will be?
+
+### Enter The Bessel Functions
+Bessel functions are a family of equations that describe some fundamental characteristics of the universe in which we find ourselves. Bessel functions are key to FM because, if you know the value of the Modulation Index, you can calculate the amplitude of any spectral component using a Bessel Function.
+Carrier 'C' the 'zeroth-order' components of our modulated signal, 'C+M' and 'C-M' the first-order components, 'C+2M' and 'C-2M' the second-order components.
+The amplitude of each pair of side bands of order 'n' is defined by a Bessel Function of order 'n'.
+??????????????????????????????????beta & n relationship
+n定义了是第几个component, beta定义了每个component的宽度比例。不需要具体数值就可以确定amplitude
+
+Every time you use the Cross Modulation function on analogue synths that are lucky enough to have one, the nasty noise you create are determined by this equation--cross modulation is just another name for frequency modulation.
+When calculating beta = 0.1 the amplitude of the zeroth component(the Carrier), first term(k=0) = 1, second term = - 0.00125, 3rd term even smaller. A converging series, added up, the amplitude of the Carrier remains very close to 1, its initial amplitude. Anything beyond the third term is so tiny that it is irrelevant.
+
+That's the amplitude of the Carrier. The side bands' amplitude? just substitute n=1.
+
+The amplitudes of the Carrier and first-order side bands are negative when beta=5. This means that they are present in the output but with inverse phase.
+
+### Creating Recognisable Harmonic Series
+
+1:1 series with beta=1. The Carrier retains much of its original amplitude, there is a harmonic series at 2C, 3C, 4C and 5C. (C-M)=0Hz(a DC or direct current component, it has no oscillation frequency), and low-amplitude components at -C, -2C and -3C. With inverse phase to C, 2C and 3C, subtracted from the in-phase components at the same frequencies. If we ignore the DC component, the resulting spectrum contains all the overtones of the Carrrier frequency and it looks like a 1/n harmonic series with just the first few harmonics present. A filtered sawtooth wave.
+
+1:2 series with beta=1. upper side bands C,3C,5C,7C...sutractive negative components reflect back at C,3C,5C,7C... The result is a truncated harmonic series with just the odd harmonics present. A filtered square wave.
+
+1:3 series, 4C,7C,10C reflected lower side bands 2C, 5C,8C which is reminiscent of the spectrum of a 33% pulse wave.
+
+1:4 series, upper 5C, 9C, 13C, reflected lower side bands at 3C, 7C, 11C, which is again similar to that of a square wave.
+
+Why there are 24 spectral components in last month's example of an output with 3600Hz bandwidth. There were 10 upper side bands in the signal, the Carrier, one unreflected lower side band, ad 12 reflected lower side bands.
+
+The integer C:M ratios are relatively straightforward because they produce harmonic waveforms with the fundamental at the Carrier frequency. But with non-integer ratios, the resulting sound will be completely enharmonic. The Carrier will no longer be the lowest frequency in the spectrum.
+
+### FM Synthesis On Analogue Synthesizers
+Some analogue polysynths such as the Oberheim Matrix 6 are capable of simple, 2-oscillator FM. This is because their digitally controlled oscillators(DCOs) are stable enough to maintain the precise frequency ratios required for the technique. FM is only truly versatile when you have access to a large number of oscillators, VCAs and contour generators. However many modules you need for a sound, you will need twice as many for duophony, three times as many for 3-note polyphony. Large number of modules. 
+
+You can still produce monophonic FM sound using just a handful of analogue modules. These need not be part of a modular synth, they could just as easily be the sections within a pre-patched monosynth.
+
+### Operators
+an operator-- a combination of an ==oscillator plus any associated envelope generators, mixers and VCAs.== We can create all manner of routings in which operators affect each other in different ways. 6-operator algorithm outputs from each of the operators are summed together, with no FM taking place whatsoever.
+
+### Feedback
+Some of the operators show outputs that loop back on themselves. These are called feedback loops, and they dramatically change the nature of the operator. In operators with feedback loops, they produce a sine wave of 100Hz and receive a 100Hz sine wave as a Modulator, thus making it produce a complete harmonic series at its output. You can then use an ==input level control or a VCA within the feedback loop== to control the ==brightness of the output waveform.==
+FM synthesis is not just the preserve of the DX-series Yamaha synths. A dual-operator feedback configuration that doesn't exist within Yamaha's FM system, but is simple to patch on a modular analogue synth.
+There are 2 operators, and the output of the second, modulated operator is fed back to the input of the first operator. If the frequencies of the 2 operators are identical, this is no difference from the self-feedback case. But what if their frequencies are different and not related by integers? The output will be noisy,make FM an unlikely but hugely powerful generator of drum and percussion sounds.
+
+### Conclusion
+FM is a powerful part of analogue synthesis, and it produces sounds that conventional forms of subtractive synthesis cannot, filling holes in your sonic armoury that you never knew you had.
+## An Introduction To Additive Synthesis
+==Every pitched sound== can be thought of as ==a collection of individual sine waves at frequencies related to the fundamental==. A powerful method of synthesis that works by ==manipulating these individual harmonics.==
+
+### The Principle Of Additive Synthesis
+You could present any waveform as a set of sine waves. For a simple harmonic oscillator, each of these sine waves has a frequency that is an integer multiple of the fundamental frequency, we call these the harmonics of the sound. 
+
+Take ==sawtooth wave== for example. An idealized sawtooth wave require it moves instantaneously from its nadir to its zenith. This waveform has a ==simple harmonic relationship==, expressed as: ==every harmonic is present, and the amplitude of the nth harmonic is 1/n times that of the fundamental.
+
+With limits, the number of harmonics should be an infinite series. If we can represent a waveform at any given moment by describing its harmonic content at that moment, is it reasonable to assume that we can take a harmonic series and derive a unique waveform from it? It is.
+
+The ==waveform== and the ==harmonic series== are simply different ways of expressing the same thing. We can take our series of nine harmonics and use them to create a hugh range of waveforms. Nine of the same amplitude, these are the only harmonics within the sound, we can calculate the waveform. You can generate a passable approximation to a square wave by using your knowledge of which harmonics are present and in which quantities.
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+The basis of additive synthesis: because, at any given moment, you can describe any waveform in terms of the frequencies and amplitudes of its components, you can take the appropriate number of sine waves and mix them together at the appropriate frequencies and in the appropriate quantities to regenerate the waveform. 
+
+All you need are nine oscillators, nine VCAs, a mixer, and some form of Gate pulse to open the amplifiers when desired.
+
+### An early electronic analogue synthesizer
+Additve synthesis were limited to monstrously over-endowed modular synths. The choice of 9 harmonics is not an accident, because it describes a very common analogue additive synth. It predates what we now think of as conventional VCO-VCF-VCA analogue synthesis by about 30 years. Hammond Organ.
+
+Hammond is a classic drawbar model, a powerful additive synthesizer. 
+
+Nine harmonically related pitches, each with 9 possible volumes, and you can combine these in any way you choose.
+
+### An Analogue Additive Synthesizer
+Sounds will always sound static and uninteresting if they do not change in time. The Hammond, while a powerful signal generator, has no means to shape or contour those signals into something more involving.
+
+Organs sound like organs not because of the simplicity of their waveform generators, but because their sounds do not change over time.
+No matter how clever the method of synthesis, and no matter how complex an initial waveform may be, any timbre will sound static and organ-like if it does not change in time.
+
+One way to add interest is by applying effects such as phasers, flangers, or echo units to the basic signal. These do not effect the essential nature of the sound. The Hammond has its own particular set of effects -- chorus/vibrato, reverb, and the wonderful Leslie rotary speaker. But effects are not a method of synthesis.
+
+Sampling the output from the tonewheel Hammond without the chorus/vibrato, reverb, or Leslie effects.Consider playing this sample through the contoured filters and amplifiers that reside within the sampler. Simply add a time varying filter and a time-varying amplifier after the output from the mixer. If we ignore the absence of modulators, it's just a multi-oscillator synth.
+
+The evolution of a real sound such as a plucked string.
+
+### Fourier Synthesis and beyond
+Each oscillator will require modifiers that modulate its pitch and amplitude. The frequencies of the various partials remain constant relative to each other, resulting i cheesy organ timbres. Grow to gargantuan proportions with each oscillator boasting a pitch LFO, pitch envelope, amplitude LFO and amplitude envelope.
+
+Add some form control for velocity- and pressure-sensitivity, and some other real-time controllers.
+
+### Now let's get noisy
+Instruments have a residual element of noise, which is not white or pink, heavily filtered by the nature of the instrument itself. We need at least one filter in our additive synth. Will need its own contour generator to ensure that the noise colour changes realistically over time. The noise generator will also need a VCA and its associated contour generator.
+Spectral Modeling Synthesis. Without the signal analysis, you could just call it the sinusoids plus noise model of sound generation.
+
+## An Introduction To ESPs & Vocoders
+Use external signals in subtractive synthesis.
+
+### Getting the Signal In
+Many analogue synthesizers offer signal inputs. If we return to the first non-modular synthesizers, Minimoog offered a signal input as one of the 5 sound sources in its Mixer. If you switched off the Moog's three internal oscillators and its noise generator, you could pass just the external signal through its filter and amplifier.
+
+It may look very simple in principle, but this arrangement has numerous subtleties and pitfalls. Minimoog has ==no initial level control for its amplifier==, ==no sound can pass through the synth until you press a key==. When you press a key the amplifier's gain increases according to the contour generator's settings, allowing you to ==chop the external audio into enveloped bits and pieces.==
+If the filter's ==cutoff frequency control is greater than zero==, some ==low frequencies will pass through== it regardless of whether you press a key or not, though you still won't hear anything until you press a key, because the amplifier's gain is zero. When you press a key, the filter's dedicated ==contour generator== will ==alter the cutoff frequency== thus ==allowing== a greater or lesser amount of the ==external signal's spectrum through== the Moog. Furthermore, you can use the ==filter's resonance to emphasize parts of the external signal's spectrum==, just as you would if the internal oscillators generated the sound. The advantage is obvious: whatever the nature of the external signal, you can use the Minimoog's filter to create new timbres.
+
+Minimoog is still very limited in the way that it can process an external signal. There is no way to determine the pitch of the sound passing through it, nor can you determine when  you hear the sound, other than by pressing a key. What we want is the ability to control the synthesizer by applying an external signal, maybe using a guitar to play it or using your voice to make it speak. Introduce 2 modules that make this possible, the envelope follower and the pitch to voltage converter.
+
+### External Signal Processing(1): The Pitch-To-Voltage Converter
+
+## Priorities & Triggers
